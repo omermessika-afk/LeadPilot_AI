@@ -82,4 +82,45 @@ render();
 </script>
 <h2>💬 LeadPilot Beauty - קביעת תורים</h2>
 </body>
+
+<section id="beauty-chat" dir="rtl">
+  <h2>💬 LeadPilot Beauty - קביעת תורים</h2>
+  <div id="chat-messages" aria-live="polite">
+    <p><b>העוזרת:</b> היי! ברוכה הבאה 💕 איזה טיפול תרצי לקבוע?</p>
+  </div>
+  <input id="chat-input" placeholder="כתבי הודעה..." aria-label="הודעה">
+  <button type="button" onclick="sendBeautyMessage()">שליחה</button>
+</section>
+
+<script>
+function sendBeautyMessage() {
+  const input = document.getElementById('chat-input');
+  const chat = document.getElementById('chat-messages');
+  const message = input.value.trim();
+  if (!message) return;
+
+  function addMessage(sender, text) {
+    const p = document.createElement('p');
+    p.textContent = sender + ': ' + text;
+    chat.appendChild(p);
+  }
+
+  addMessage('לקוחה', message);
+
+  let reply = 'אשמח לעזור! איזה טיפול תרצי לקבוע?';
+  if (/תור|לקבוע|פנוי/.test(message)) {
+    reply = 'בשמחה 💕 לאיזה טיפול ובאיזה יום תרצי להגיע?';
+  } else if (/פנים|גבות|ריסים|לק|ציפורניים/.test(message)) {
+    reply = 'מעולה! לאיזה יום ושעה תרצי לקבוע?';
+  } else if (/מחיר|עולה|עלות/.test(message)) {
+    reply = 'בשמחה! לאיזה טיפול תרצי לקבל הצעת מחיר?';
+  } else if (/שלום|היי|בוקר טוב/.test(message)) {
+    reply = 'היי! 💕 איך אוכל לעזור לך היום?';
+  }
+
+  addMessage('העוזרת', reply);
+  input.value = '';
+}
+</script>
+
 </html>
